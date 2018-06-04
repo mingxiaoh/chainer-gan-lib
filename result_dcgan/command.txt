@@ -1,0 +1,1 @@
+train.py --gpu -1 --algorithm dcgan --out result_dcgan
