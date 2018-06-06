@@ -11,6 +11,7 @@ import chainer.cuda
 from chainer import Variable
 from chainer import serializers
 import chainer.functions as F
+from chainer.backends import intel64
 
 sys.path.append(os.path.dirname(__file__))
 sys.path.append(os.path.abspath(os.path.dirname(__file__)) + os.path.sep + os.path.pardir)
@@ -75,7 +76,10 @@ def load_inception_model():
     infile = "%s/../common/inception/inception_score.model"%os.path.dirname(__file__)
     model = Inception()
     serializers.load_hdf5(infile, model)
-    model.to_gpu()
+    if intel64.should_use_ideep('>=auto'):
+       model.to_intel64()
+    else:
+       model.to_gpu()
     return model
 
 

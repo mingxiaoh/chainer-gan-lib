@@ -22,6 +22,8 @@ from common.misc import copy_param
 import numpy as np
 import chainer.functions as F
 from chainer import Variable
+from chainer.backends import intel64
+
 try:
     x = Variable(np.asarray([1, 2, 3], dtype="f"))
     y = F.sum(1.0/x)
@@ -100,6 +102,11 @@ def main():
         generator.to_gpu()
         generator_smooth.to_gpu()
         discriminator.to_gpu()
+        print("use gpu {}".format(args.gpu))
+    else:
+        generator.to_intel64()
+        generator_smooth.to_intel64()
+        discriminator.to_intel64()
         print("use gpu {}".format(args.gpu))
 
     if args.pretrained_generator != "":

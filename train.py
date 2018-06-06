@@ -154,7 +154,10 @@ def main():
         print("use gpu {}".format(args.gpu))
         for m in models:
             m.to_gpu()
-
+    else:
+        print("use gpu {}".format(args.gpu))
+        for m in models:
+            m.to_intel64()
     # Set up optimizers
     opts["opt_gen"] = make_optimizer(generator, args.adam_alpha, args.adam_beta1, args.adam_beta2)
     opts["opt_dis"] = make_optimizer(discriminator, args.adam_alpha, args.adam_beta1, args.adam_beta2)
